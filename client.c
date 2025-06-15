@@ -6,7 +6,7 @@
 /*   By: cress <cress@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:31:07 by cress             #+#    #+#             */
-/*   Updated: 2025/06/15 11:20:15 by cress            ###   ########.fr       */
+/*   Updated: 2025/06/15 20:52:04 by cress            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	send_char_to_bin(int pid, char c)
 			kill(pid, SIGUSR1);
 		if ((c >> i & 1) == 0)
 			kill(pid, SIGUSR2);
-		usleep(42);
+		usleep(1500);
 		i++;
 	}
 }

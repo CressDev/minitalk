@@ -6,7 +6,7 @@
 /*   By: cress <cress@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:31:17 by cress             #+#    #+#             */
-/*   Updated: 2025/06/15 19:35:35 by cress            ###   ########.fr       */
+/*   Updated: 2025/06/15 19:45:51 by cress            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,9 @@ void	sig_to_char(int sig)
 	if (!c)
 		c = '\0';
 	if (sig == SIGUSR1)
-	{
 		c += (1 << i);
-		usleep(42);
-	}
 	else if (sig == SIGUSR2)
-	{
 		c += (0 << i);
-		usleep(42);
-	}
 	i++;
 	if (i == 8)
 	{
@@ -43,9 +37,8 @@ void	sig_to_char(int sig)
 		i = 0;
 		c = 0;
 	}
-	else
-		c <<= 1;
-	write(1, "1", 1);
+	
+	//write(1, "1", 1);
 }
 
 int	main(void)
