@@ -6,7 +6,7 @@
 /*   By: cress <cress@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:31:17 by cress             #+#    #+#             */
-/*   Updated: 2025/06/15 19:19:50 by cress            ###   ########.fr       */
+/*   Updated: 2025/06/15 19:35:35 by cress            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,18 @@ void	sig_to_char(int sig)
 	static char			c;
 	static int		i;
 
-	i = 0;
-	c = '\0';
+	if (!i)
+		i = 0;
+	if (!c)
+		c = '\0';
 	if (sig == SIGUSR1)
 	{
-		c |= (1 << i);
+		c += (1 << i);
 		usleep(42);
 	}
 	else if (sig == SIGUSR2)
 	{
-		c |= (0 << i);
+		c += (0 << i);
 		usleep(42);
 	}
 	i++;
@@ -39,9 +41,11 @@ void	sig_to_char(int sig)
 	{
 		write(1, &c, 1);
 		i = 0;
+		c = 0;
 	}
 	else
 		c <<= 1;
+	write(1, "1", 1);
 }
 
 int	main(void)
@@ -52,8 +56,9 @@ int	main(void)
 	s1 = "I'm the server, my PID is";
 	pid = getpid();
 	ft_printf ("%s, %d\n", s1, pid);
-	sleep(42);
 	signal(SIGUSR1, sig_to_char);
 	signal(SIGUSR2, sig_to_char);
+	while (1)
+		sleep(1);
 	return (0);
 }
