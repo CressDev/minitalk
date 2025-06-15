@@ -6,7 +6,7 @@
 /*   By: cress <cress@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:31:17 by cress             #+#    #+#             */
-/*   Updated: 2025/06/15 18:42:42 by cress            ###   ########.fr       */
+/*   Updated: 2025/06/15 19:19:50 by cress            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include "libft/libft.h"
 
-void	handler_sig_to_char(int sig)
+void	sig_to_char(int sig)
 {
 	static char			c;
 	static int		i;
@@ -29,12 +29,16 @@ void	handler_sig_to_char(int sig)
 		c |= (1 << i);
 		usleep(42);
 	}
+	else if (sig == SIGUSR2)
+	{
+		c |= (0 << i);
+		usleep(42);
+	}
 	i++;
 	if (i == 8)
 	{
 		write(1, &c, 1);
 		i = 0;
-		c = '\0';
 	}
 	else
 		c <<= 1;
@@ -49,7 +53,7 @@ int	main(void)
 	pid = getpid();
 	ft_printf ("%s, %d\n", s1, pid);
 	sleep(42);
-	signal(SIGUSR1, handler_sig_to_char);
-	signal(SIGUSR2, handler_sig_to_char);
+	signal(SIGUSR1, sig_to_char);
+	signal(SIGUSR2, sig_to_char);
 	return (0);
 }
