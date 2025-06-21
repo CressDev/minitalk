@@ -6,7 +6,7 @@
 #    By: cress <cress@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/23 18:21:37 by amonteag          #+#    #+#              #
-#    Updated: 2025/06/14 19:44:46 by cress            ###   ########.fr        #
+#    Updated: 2025/06/21 17:35:44 by cress            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ clean:
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
-	$(RM) $(NAME_C) $(NAME_S)
+	$(RM) $(NAME_C) $(NAME_S) $(OBJ_S) $(OBJ_C)
 ##@echo "$(NAME) eliminada"
 
 re: fclean all
