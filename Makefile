@@ -6,7 +6,7 @@
 #    By: cress <cress@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/23 18:21:37 by amonteag          #+#    #+#              #
-#    Updated: 2025/06/21 17:35:44 by cress            ###   ########.fr        #
+#    Updated: 2025/06/21 17:39:29 by cress            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ $(LIBFT):
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(RM) $(OBJ_C) $(OBJ_S)
+	$(RM) $(NAME_C) $(NAME_S) $(OBJ_C) $(OBJ_S)
 	make -C $(LIBFT_DIR) clean
 ##@echo "Archivos printf .o eliminados"
 
