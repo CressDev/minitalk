@@ -6,7 +6,7 @@
 /*   By: cress <cress@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:31:07 by cress             #+#    #+#             */
-/*   Updated: 2025/06/23 22:15:16 by cress            ###   ########.fr       */
+/*   Updated: 2025/06/24 19:26:23 by cress            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,23 @@
 
 void	send_char_to_bin(int pid, char c)
 {
-	static int	i;
+	int	i;
 
 	i = 0;
 	write (1, "\ninicio\n", 8);
 	while (i < 8)
 	{
 		if ((c >> i & 1) == 1)
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) == -1)
+				write (1, "Error in Kill_SIGUSR1", 21);
+		}
 		else
-			kill(pid, SIGUSR2);
+		{
+			if (kill(pid, SIGUSR2) == -1)
+				write (1, "Error in Kill_SIGUSR2", 21);
+		}
 		pause();
-		usleep(100);
 		i++;
 	}
 }
@@ -47,8 +52,8 @@ void	signal_handler(int sig)
 
 int	main(int argc, char **argv)
 {
-	int		pid;
-	int		i;
+	int					pid;
+	int					i;
 	struct sigaction	sig_client;
 
 	if (argc == 3)
@@ -64,7 +69,6 @@ int	main(int argc, char **argv)
 		while (argv[2][i] != '\0')
 			send_char_to_bin(pid, argv[2][i++]);
 		send_char_to_bin(pid, '\0');
-
 	}
 	return (0);
 }

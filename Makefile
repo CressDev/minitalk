@@ -6,13 +6,12 @@
 #    By: cress <cress@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/23 18:21:37 by amonteag          #+#    #+#              #
-#    Updated: 2025/06/21 17:39:29 by cress            ###   ########.fr        #
+#    Updated: 2025/06/24 20:46:21 by cress            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-AR = ar rcs
 RM = rm -f
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a

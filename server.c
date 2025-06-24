@@ -6,7 +6,7 @@
 /*   By: cress <cress@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 19:31:17 by cress             #+#    #+#             */
-/*   Updated: 2025/06/23 22:10:01 by cress            ###   ########.fr       */
+/*   Updated: 2025/06/24 20:54:24 by cress            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,16 @@
 #include <stdio.h>
 #include "libft/libft.h"
 
-char g_str[4096];
-
 void	wrt_str(__pid_t pid_client, char c)
 {
 	static int	j;
+	static char	new_str[2048];
 
-	if (!j)
-		j = 0;
 	if (c == '\0')
 	{
-		g_str[j] = '\0';
+		new_str[j] = '\0';
 		j = 0;
-		write (1, g_str, ft_strlen(g_str));
+		write (1, new_str, ft_strlen(new_str));
 		if (kill(pid_client, SIGUSR2) == -1)
 		{
 			write (1, "Error in Kill_SIGUSR2", 21);
@@ -37,7 +34,7 @@ void	wrt_str(__pid_t pid_client, char c)
 		}
 		return ;
 	}
-	g_str[j++] = c;
+	new_str[j++] = c;
 }
 
 void	sig_to_char_handler(int sig, siginfo_t *info, void *context)
@@ -49,10 +46,6 @@ void	sig_to_char_handler(int sig, siginfo_t *info, void *context)
 	(void)context;
 	if (info->si_pid != 0)
 		pid_client = info->si_pid;
-	if (!i)
-		i = 0;
-	if (!c)
-		c = '\0';
 	if (sig == SIGUSR1)
 		c |= (1 << i);
 	i++;
@@ -73,7 +66,6 @@ void	sig_to_char_handler(int sig, siginfo_t *info, void *context)
 int	main(void)
 {
 	__pid_t				pid;
-	char				*s1;
 	struct sigaction	sig_server;
 
 	sig_server.sa_sigaction = sig_to_char_handler;
@@ -83,9 +75,9 @@ int	main(void)
 	sigaddset(&sig_server.sa_mask, SIGUSR2);
 	sigaction(SIGUSR1, &sig_server, NULL);
 	sigaction(SIGUSR2, &sig_server, NULL);
-	s1 = "I'm the server, my PID is";
 	pid = getpid();
-	ft_printf ("%s, %d\n", s1, pid);
+	ft_printf("__PID: %d\n", pid);
+	sleep(2);
 	while (1)
 		pause();
 	return (0);
